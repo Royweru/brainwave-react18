@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { brainwave } from "../assets";
 
+import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navigation } from "../constants";
 import { useLocation } from "react-router-dom";
 import Button from "./Button";
 import MenuSvg from "../assets/svg/MenuSvg"
 import {HambugerMenu} from './design/Header'
+
 export const Header = () => {
   const pathName = useLocation();
   const[openNavigation,setOpenNavigation] = useState(false)
@@ -13,19 +15,21 @@ export const Header = () => {
   const toggleNavigation = ()=>{
     if(openNavigation){
       setOpenNavigation(false)
+      enablePageScroll()
     }else{
       setOpenNavigation(true)
+      disablePageScroll()
     }
   }
    const handleClick = ()=>{
     setOpenNavigation(false)
+    enablePageScroll()
    }
   return (
     <div
-      className={` top-0  left-0 fixed z-50 border-b border-n-6
-      lg:bg-n-8/90 lg:backdrop-blur-sm navbar w-full 
-        ${openNavigation?"bg-n-8":'bg-n-8/90 backdrop-blur-sm'}
-     `}
+      className={`fixed top-0 left-0 w-full z-50  border-b border-n-6 ${
+        openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop-blur-sm"
+      }`}
     >
       <div
         className=" flex items-center px-5 lg:px-7.5

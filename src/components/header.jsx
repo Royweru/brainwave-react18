@@ -9,10 +9,20 @@ import {HambugerMenu} from './design/Header'
 export const Header = () => {
   const pathName = useLocation();
   const[openNavigation,setOpenNavigation] = useState(false)
-  
+
+  const toggleNavigation = ()=>{
+    if(openNavigation){
+      setOpenNavigation(false)
+    }else{
+      setOpenNavigation(true)
+    }
+  }
+   const handleClick = ()=>{
+    setOpenNavigation(false)
+   }
   return (
     <div
-      className={` top-0  left-0 fixed z-50 bg-n-8/90 backdrop-blur-sm border-b border-n-6
+      className={` top-0  left-0 fixed z-50 border-b border-n-6
       lg:bg-n-8/90 lg:backdrop-blur-sm navbar w-full 
         ${openNavigation?"bg-n-8":'bg-n-8/90 backdrop-blur-sm'}
      `}
@@ -39,6 +49,7 @@ export const Header = () => {
               <a
                 href={nav.url}
                 key={nav.id}
+                onClick={handleClick}
                 className={` block relative font-code text-2xl uppercase 
                      text-n-1 transition-colors hover:text-color-1
                      ${
@@ -52,8 +63,8 @@ export const Header = () => {
                 {nav.title}
               </a>
             ))}
-            <HambugerMenu />
           </div>
+          <HambugerMenu />
         </nav>
          <a href=""
           className=" button hidden mr-8  text-n-1/50 transition-colors
@@ -65,7 +76,7 @@ export const Header = () => {
         <Button className={" hidden lg:flex"}>
           Sign in
         </Button>
-        <Button className=" ml-auto lg:hidden "px={"px-3"} >
+        <Button className=" ml-auto lg:hidden "px={"px-3"} onClick={toggleNavigation} >
           <MenuSvg openNavigation={openNavigation}/>
         </Button>
       </div>
